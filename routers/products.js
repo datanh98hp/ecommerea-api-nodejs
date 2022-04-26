@@ -34,6 +34,7 @@ router.get(`/:id`, async (req, res) => {
 //create
 router.post(`/`, async(req, res) => {
     const category = await Category.findById(req.body.category)
+    console.log(category)
     if(!category) return res.status(400).send('Invalid Category.')
 
     let product = new Product({
@@ -51,9 +52,9 @@ router.post(`/`, async(req, res) => {
     });
 
     product = await product.save();
-
+    console.log(product)
     if(!product) 
-        return res.status(500).send('The product cannot created !')
+    return res.status(500).send('The product cannot created !')
     res.send(product)
 });
 //update
@@ -85,8 +86,10 @@ router.put(`/:id`, async (req, res) => {
 
     product = await product.save();
 
-    if (!product)
+    if (!product){
         return res.status(500).send('The product cannot updated !')
+    }
+        
     res.send(product)
 });
 // delete

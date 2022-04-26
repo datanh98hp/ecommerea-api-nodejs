@@ -78,7 +78,6 @@ router.post('/login',async (req,res)=>{
             {
                 userId:user.id,
                 isAdmin:user.isAdmin
-
             },
             secretString,
             {expiresIn:'1d'}
@@ -89,8 +88,32 @@ router.post('/login',async (req,res)=>{
         res.status(400).send({ message: 'Password is wrong.' })
     }
 })
-// 
 
+//user count
+
+router.get(`/get/count`,async (req,res)=>{
+    const userCount = await User.countDocuments()
+
+    if (!userCount) {
+        res.status(500).json({ success: false })
+    }
+    res.send({
+        count: userCount
+    })
+})
+
+// delete user
+router.delete('/:id', async (req, res) => {
+    User.findByIdAndRemove(req.params.id).then(user => {
+        if (user) {
+            res.status(200).json({ success: true, message: 'The user is deleted.' })
+        } else {
+            return res.status(404).json({ success: false, message: 'User not found.' })
+        }
+    }).catch(err => {
+        return res.status(400).json({ success: false, error: err })
+    })
+})
 ////// 7 Protect  the api and Authentication JWT Middleware
 
 
