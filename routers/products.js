@@ -13,8 +13,9 @@ router.get(`/`, async (req, res) => {
     if(req.query.categories){
        filter = {category: req.query.categories.split(',') }
     }
-    const limitNumber = req.query.limit;
-    const productList = await Product.find(filter).populate('category').limit(limitNumber);
+    //const limitNumber = req.query.limit;
+    //const productList = await Product.find(filter).populate('category').limit(limitNumber);
+    const productList = await Product.find(filter).populate('category');
 
     if (!productList) {
         res.status(500).json({ success: false })
