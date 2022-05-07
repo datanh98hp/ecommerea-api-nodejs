@@ -14,6 +14,7 @@ function authJwt(){
         }
     }).unless({ //loai tru path k ap dung authorized
         path: [
+            { url: /\/public\/uploads(.*)/, method: ['GET', 'OPTIONS'] },
             {url: /\/api\/v1\/products(.*)/,method:['GET','OPTIONS']},
             { url: /\/api\/v1\/categories(.*)/, method: ['GET', 'OPTIONS'] },
             `${api}/users/login`,

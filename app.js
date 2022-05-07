@@ -26,6 +26,7 @@ app.use(morgan('tiny'))
 app.options('*',cors())
 app.use(authJwt());
 app.use(errorHandler)
+app.use('/public/uploads', express.static(__dirname +'/public/uploads'))
 
 //Router
 app.use(`${api}/products`, productRouters)
